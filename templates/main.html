@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komentar</title>
+    <style>
+        body {
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            width: 1200px;
+            height: 350px;
+            margin: 60px 100px 40px 250px;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 200%;
+        }
+        .input-container textarea {
+            width: 500px;
+            height: 200px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .input-container button {
+            width: 100px;
+            height: 40px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .input-container .clear-btn {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        .input-container .confirm-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        .comment-types {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+        }
+        .comment-types p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        h1{
+            text-align: center;
+        }
+        img{
+            margin-left: 250px;
+        }
+    </style>
+    <script>
+        function clearTextarea() {
+            document.getElementById('comment').value = '';
+        }
+    </script>
+</head>
+<body>
+    <h1>Analisis Sentimen Komentar Media Sosial Dengan LSTM</h1>
+    <div class="container">
+        <div class="input-container">
+            <form action="/predict" method="post">
+                <textarea id="comment" name="comment" placeholder="Masukkan komentar anda">{{ comment if comment else '' }}</textarea>
+                <div>
+                    <button type="button" class="clear-btn" onclick="clearTextarea()">Bersihkan</button>
+                    <button type="submit" class="confirm-btn">Konfirmasi</button>
+                </div>
+            </form>
+        </div>
+        <div class="comment-types">
+            <p>Komentar Netral: {{ netral if netral is not none else '' }}</p>
+            <p>Komentar Positif: {{ positif if positif is not none else '' }}</p>
+            <p>Komentar Negatif: {{ negatif if negatif is not none else '' }}</p>
+        </div>
+    </div>
+
+    <div class="info-akurasi">
+        <h1>Akurasi dan Loss</h1>
+        <img src="{{ url_for('static', filename='pictures/acc-loss.jpg') }}" alt="Akurasi dan Loss">
+    </div>
+</body>
+</html>
